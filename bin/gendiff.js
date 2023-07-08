@@ -5,17 +5,15 @@ import _ from 'lodash';
 import path from 'path';
 import YAML from 'yaml';
 
-const pathToAbsolute = (relativePath) => (relativePath[0] === '/' ? relativePath : path.resolve(relativePath));
+const getAbsolutePath = (relativePath) => (relativePath[0] === '/' ? relativePath : path.resolve(relativePath));
 const getFileExtension = (fileName) => (fileName.split('.').pop().toLowerCase()); // => 'yaml' || 'json'
-const readFile = (filePath) => readFileSync(pathToAbsolute(filePath), 'utf-8');
+const readFileContent = (filePath) => readFileSync(getAbsolutePath(filePath), 'utf-8');
 const convertJsonToObject = (string) => JSON.parse(string);
 const convertYamlToObject = (string) => YAML.parse(string);
 
 const genDiff = (filepath1, filepath2) => {
-  const absolutePath1 = pathToAbsolute(filepath1);
-  const absolutePath2 = pathToAbsolute(filepath2);
-  const fileContent1 = readFile(absolutePath1);
-  const fileContent2 = readFile(absolutePath2);
+  const fileContent1 = readFileContent(getAbsolutePath(filepath1));
+  const fileContent2 = readFileContent(getAbsolutePath(filepath2));
   const obj1 = getFileExtension(filepath1) === 'yaml' ? convertYamlToObject(fileContent1) : convertJsonToObject(fileContent1);
   const obj2 = getFileExtension(filepath1) === 'yaml' ? convertYamlToObject(fileContent2) : convertJsonToObject(fileContent2);
 
