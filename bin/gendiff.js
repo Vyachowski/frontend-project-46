@@ -12,8 +12,10 @@ const convertJsonToObject = (string) => JSON.parse(string);
 const convertYamlToObject = (string) => YAML.parse(string);
 
 const genDiff = (filepath1, filepath2) => {
-  const fileContent1 = readFile(pathToAbsolute(filepath1));
-  const fileContent2 = readFile(pathToAbsolute(filepath2));
+  const absolutePath1 = pathToAbsolute(filepath1);
+  const absolutePath2 = pathToAbsolute(filepath2);
+  const fileContent1 = readFile(absolutePath1);
+  const fileContent2 = readFile(absolutePath2);
   const obj1 = getFileExtension(filepath1) === 'yaml' ? convertYamlToObject(fileContent1) : convertJsonToObject(fileContent1);
   const obj2 = getFileExtension(filepath1) === 'yaml' ? convertYamlToObject(fileContent2) : convertJsonToObject(fileContent2);
 
