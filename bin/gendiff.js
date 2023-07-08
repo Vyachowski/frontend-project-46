@@ -1,17 +1,46 @@
 #!/usr/bin/env node
 import { program } from 'commander';
-
 import { readFileSync } from 'fs';
+import _ from 'lodash';
 import path from 'path';
+import YAML from 'yaml';
 
-const pathToAbsolute = (filePath) => (filePath[0] === '/' ? filePath : path.resolve(filePath));
-const readJsonFile = (filePath) => {
-  const absolutePath = pathToAbsolute(filePath);
-  return JSON.parse(readFileSync(absolutePath, 'utf-8'));
-};
+const pathToAbsolute = (relativePath) => (relativePath[0] === '/' ? relativePath : path.resolve(relativePath));
+const getFileExtension = (fileName) => (fileName.split('.').pop().toLowerCase()); // => 'yaml' || 'json'
+const readFile = (filePath) => readFileSync(pathToAbsolute(filePath), 'utf-8');
+const convertJsonToObject = (string) => JSON.parse(string);
+const convertYamlToObject = (string) => YAML.parse(string);
+
 const genDiff = (filepath1, filepath2) => {
-  console.log(readJsonFile(filepath1), readJsonFile(filepath2));
+  const fileContent1 = readFile(pathToAbsolute(filepath1));
+  const fileContent2 = readFile(pathToAbsolute(filepath2));
+  const obj1 = getFileExtension(filepath1) === 'yaml' ? convertYamlToObject(fileContent1) : convertJsonToObject(fileContent1);
+  const obj2 = getFileExtension(filepath1) === 'yaml' ? convertYamlToObject(fileContent2) : convertJsonToObject(fileContent2);
+
+  let diff = '{\n';
+  const objKeys = _.union(Object.keys(obj1), Object.keys(obj2));
+  const sortedObjKeys = _.sortBy(objKeys);
+
+  // eslint-disable-next-line no-restricted-syntax
+  for (const key of sortedObjKeys) {
+    if (!(key in obj2)) {
+      diff += `  - ${key}: ${obj1[key]}\n`;
+    }
+    if (!(key in obj1)) {
+      diff += `  + ${key}: ${obj2[key]}\n`;
+    }
+    if (key in obj1 && key in obj2) {
+      diff += obj1[key] !== obj2[key]
+        ? `  - ${key}: ${obj1[key]}\n  + ${key}: ${obj2[key]}\n`
+        : `    ${key}: ${obj1[key]}\n`;
+    }
+  }
+
+  diff += '}';
+  return diff;
 };
+
+console.log(genDiff('src/assets/file1.yaml', 'src/assets/file2.yaml'));
 
 program
   .name('gendiff')
@@ -19,26 +48,8 @@ program
   .version('1.0.0')
   .argument('<filepath1>')
   .argument('<filepath2>')
-  .option('-f', '--format-type <type>', 'output format')
+  .option('-F, --format-type', 'output format')
   .action(genDiff)
   .parse();
 
-// Temporary data
-// const absolutePath1 = '/Users/vyachowski/Sites/Educational Projects/JavaScript/Hexlet/frontend-project-46/src/assets/file1.json';
-// const relativePath1 = 'file1.json'; // PWD + / +  filename
-// const relativePath2 = './file1.json'; // PWD + / - . + filename
-// const rightRelativePath = 'src/assets/file1.json'; // PWD + / + filename
-// const relativePath4 = '../examples/file1.json'; // PWD - last folder + PWD
-// const relativePath5 = '../../src/assets/file1.json'; // PWD - two folders + PWD
-
-// Functions
-
-// console.log(pathToAbsolute(absolutePath1));
-// console.log(pathToAbsolute(relativePath1));
-// console.log(pathToAbsolute(relativePath2));
-// console.log(pathToAbsolute(rightRelativePath));
-// console.log(pathToAbsolute(relativePath4));
-// console.log(pathToAbsolute(relativePath5));
-
-// Export
 export default genDiff;
