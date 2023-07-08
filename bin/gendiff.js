@@ -1,21 +1,11 @@
 #!/usr/bin/env node
 import { program } from 'commander';
-import { readFileSync } from 'fs';
 import _ from 'lodash';
-import path from 'path';
-import YAML from 'yaml';
-
-const getAbsolutePath = (relativePath) => (relativePath[0] === '/' ? relativePath : path.resolve(relativePath));
-const getFileExtension = (fileName) => (fileName.split('.').pop().toLowerCase()); // => 'yaml' || 'json'
-const readFileContent = (filePath) => readFileSync(getAbsolutePath(filePath), 'utf-8');
-const convertJsonToObject = (string) => JSON.parse(string);
-const convertYamlToObject = (string) => YAML.parse(string);
+import parseFileToObject from '../src/parser.js';
 
 const genDiff = (filepath1, filepath2) => {
-  const fileContent1 = readFileContent(getAbsolutePath(filepath1));
-  const fileContent2 = readFileContent(getAbsolutePath(filepath2));
-  const obj1 = getFileExtension(filepath1) === 'json' ? convertJsonToObject(fileContent1) : convertYamlToObject(fileContent1);
-  const obj2 = getFileExtension(filepath1) === 'json' ? convertJsonToObject(fileContent2) : convertYamlToObject(fileContent2);
+  const obj1 = parseFileToObject(filepath1);
+  const obj2 = parseFileToObject(filepath2);
 
   let diff = '{\n';
   const objKeys = _.union(Object.keys(obj1), Object.keys(obj2));
