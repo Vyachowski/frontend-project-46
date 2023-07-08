@@ -7,32 +7,27 @@ const genDiff = (filepath1, filepath2) => {
   const obj1 = parseFileToObject(filepath1);
   const obj2 = parseFileToObject(filepath2);
 
-  let diff = '{\n';
   const objKeys = _.union(Object.keys(obj1), Object.keys(obj2));
   const sortedObjKeys = _.sortBy(objKeys);
 
-  // eslint-disable-next-line no-restricted-syntax
-  for (const key of sortedObjKeys) {
+  const diffLines = sortedObjKeys.map((key) => {
     if (!(key in obj2)) {
-      diff += `  - ${key}: ${obj1[key]}\n`;
+      return `  - ${key}: ${obj1[key]}`;
     }
     if (!(key in obj1)) {
-      diff += `  + ${key}: ${obj2[key]}\n`;
+      return `  + ${key}: ${obj2[key]}`;
     }
-    if (key in obj1 && key in obj2) {
-      diff += obj1[key] !== obj2[key]
-        ? `  - ${key}: ${obj1[key]}\n  + ${key}: ${obj2[key]}\n`
-        : `    ${key}: ${obj1[key]}\n`;
-    }
-  }
+    return obj1[key] !== obj2[key]
+      ? `  - ${key}: ${obj1[key]}\n  + ${key}: ${obj2[key]}`
+      : `    ${key}: ${obj1[key]}`;
+  });
 
-  diff += '}';
+  const diffContent = diffLines.join('\n');
+  const diff = `{\n${diffContent}\n}`;
   return diff;
 };
 
-console.log(genDiff('__fixtures__/file1.yaml', '__fixtures__/file2.yaml'));
-console.log(genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml'));
-console.log(genDiff('__fixtures__/file1.json', '__fixtures__/file2.json'));
+console.log(genDiff('./__fixtures__/file1.json', './__fixtures__/file2.json'));
 
 program
   .name('gendiff')
