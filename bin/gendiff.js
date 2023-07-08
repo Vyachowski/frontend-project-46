@@ -40,7 +40,7 @@ const genDiff = (filepath1, filepath2) => {
   return diff;
 };
 
-console.log(genDiff('src/assets/file1.yaml', 'src/assets/file2.yaml'));
+console.log(genDiff('__fixtures__/file1.yaml', '__fixtures__/file2.yaml'));
 
 program
   .name('gendiff')
