@@ -41,6 +41,8 @@ const genDiff = (filepath1, filepath2) => {
 };
 
 console.log(genDiff('__fixtures__/file1.yaml', '__fixtures__/file2.yaml'));
+console.log(genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml'));
+console.log(genDiff('__fixtures__/file1.json', '__fixtures__/file2.json'));
 
 program
   .name('gendiff')
