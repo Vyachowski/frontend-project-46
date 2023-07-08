@@ -27,7 +27,7 @@ const genDiff = (filepath1, filepath2) => {
   return diff;
 };
 
-console.log(genDiff('./__fixtures__/file1.json', './__fixtures__/file2.json'));
+console.log(genDiff('./__fixtures__/file1-recursive.json', './__fixtures__/file2-recursive.json'));
 
 program
   .name('gendiff')
