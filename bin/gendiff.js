@@ -3,10 +3,7 @@ import { program } from 'commander';
 import _ from 'lodash';
 import parseFileToObject from '../src/parser.js';
 
-const genDiff = (filepath1, filepath2) => {
-  const obj1 = parseFileToObject(filepath1);
-  const obj2 = parseFileToObject(filepath2);
-
+const genDiff = (obj1, obj2) => {
   const objKeys = _.union(Object.keys(obj1), Object.keys(obj2));
   const sortedObjKeys = _.sortBy(objKeys);
 
@@ -35,7 +32,9 @@ program
   .argument('<filepath2>', 'path to the comparing file')
   .option('-F, --format-type <type>', 'output format')
   .action((filepath1, filepath2) => {
-    const result = genDiff(filepath1, filepath2);
+    const obj1 = parseFileToObject(filepath1);
+    const obj2 = parseFileToObject(filepath2);
+    const result = genDiff(obj1, obj2);
     console.log(result);
   })
   .parse();
