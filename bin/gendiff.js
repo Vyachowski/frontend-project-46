@@ -27,16 +27,17 @@ const genDiff = (filepath1, filepath2) => {
   return diff;
 };
 
-console.log(genDiff('./__fixtures__/file1-recursive.json', './__fixtures__/file2-recursive.json'));
-
 program
   .name('gendiff')
   .description('Compares two configuration files and shows a difference.')
   .version('1.0.0')
-  .argument('<filepath1>')
-  .argument('<filepath2>')
-  .option('-F, --format-type', 'output format')
-  .action(genDiff)
+  .argument('<filepath1>', 'path to the source file')
+  .argument('<filepath2>', 'path to the comparing file')
+  .option('-F, --format-type <type>', 'output format')
+  .action((filepath1, filepath2) => {
+    const result = genDiff(filepath1, filepath2);
+    console.log(result);
+  })
   .parse();
 
 export default genDiff;
