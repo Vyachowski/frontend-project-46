@@ -3,3 +3,4 @@
 *.log
 coverage
 .DS_Store
+.idea
