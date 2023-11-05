@@ -11,7 +11,7 @@ const parseFileToObject = (filePath) => {
     const fileContent = readFileSync(absolutePath, 'utf-8');
     return fileExtension === 'json' ? JSON.parse(fileContent) : YAML.parse(fileContent);
   }
-  throw new Error('Only yml/yaml/json formats are allowed.');
+  throw new Error('Only yml/yaml/json formats are allowed. Please try again');
 };
 
 export default parseFileToObject;
