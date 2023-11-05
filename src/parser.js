@@ -7,7 +7,7 @@ const parseFileToObject = (filePath) => {
   const allowedFormats = ['yml', 'yaml', 'json'];
   const fileExtension = filePath.split('.').pop().toLowerCase();
   if (allowedFormats.includes(fileExtension)) {
-    const absolutePath = filePath[0] === '/' ? filePath : path.resolve(filePath);
+    const absolutePath = filePath.startsWith('/') ? filePath : path.resolve(filePath);
     const fileContent = readFileSync(absolutePath, 'utf-8');
     return fileExtension === 'json' ? JSON.parse(fileContent) : YAML.parse(fileContent);
   }
