@@ -20,8 +20,7 @@ const genDiff = (obj1, obj2) => {
   });
 
   const diffContent = diffLines.join('\n');
-  const diff = `{\n${diffContent}\n}`;
-  return diff;
+  return `{\n${diffContent}\n}`;
 };
 
 program
