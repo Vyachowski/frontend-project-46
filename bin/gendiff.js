@@ -4,8 +4,11 @@ import _ from 'lodash';
 import parseFileToObject from '../src/parser.js';
 
 const genDiff = (filepath1, filepath2) => {
+  // Parsing
   const obj1 = parseFileToObject(filepath1);
   const obj2 = parseFileToObject(filepath2);
+
+  // Logic
   const objKeys = _.union(Object.keys(obj1), Object.keys(obj2));
   const sortedObjKeys = _.sortBy(objKeys);
 
@@ -21,6 +24,7 @@ const genDiff = (filepath1, filepath2) => {
       : `    ${key}: ${obj1[key]}`;
   });
 
+  // Formatting
   const diffContent = diffLines.join('\n');
   return `{\n${diffContent}\n}`;
 };
