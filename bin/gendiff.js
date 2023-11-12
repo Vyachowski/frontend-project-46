@@ -24,7 +24,7 @@ const genDiff = (filepath1, filepath2) => {
       : `    ${key}: ${obj1[key]}`;
   });
 
-  // Formatting
+  // Formatting content
   const diffContent = diffLines.join('\n');
   return `{\n${diffContent}\n}`;
 };
