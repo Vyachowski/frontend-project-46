@@ -8,7 +8,7 @@ const genDiff = (filepath1, filepath2) => {
   const obj1 = parseFileToObject(filepath1);
   const obj2 = parseFileToObject(filepath2);
 
-  // Logic
+  // Logic here
   const objKeys = _.union(Object.keys(obj1), Object.keys(obj2));
   const sortedObjKeys = _.sortBy(objKeys);
 
