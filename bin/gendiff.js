@@ -4,7 +4,7 @@ import _ from 'lodash';
 import parseFileToObject from '../src/parser.js';
 
 const genDiff = (filepath1, filepath2) => {
-  // Parsing
+  // Parsin
   const obj1 = parseFileToObject(filepath1);
   const obj2 = parseFileToObject(filepath2);
 
