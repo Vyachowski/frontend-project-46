@@ -4,29 +4,16 @@ import _ from 'lodash';
 import parseFileToObject from '../src/parser.js';
 
 const genDiff = (filepath1, filepath2) => {
-  // Parsin
+  // Parsing
   const obj1 = parseFileToObject(filepath1);
   const obj2 = parseFileToObject(filepath2);
 
   // Logic here
-  const objKeys = _.union(Object.keys(obj1), Object.keys(obj2));
-  const sortedObjKeys = _.sortBy(objKeys);
-
-  const diffLines = sortedObjKeys.map((key) => {
-    if (!(key in obj2)) {
-      return `  - ${key}: ${obj1[key]}`;
-    }
-    if (!(key in obj1)) {
-      return `  + ${key}: ${obj2[key]}`;
-    }
-    return obj1[key] !== obj2[key]
-      ? `  - ${key}: ${obj1[key]}\n  + ${key}: ${obj2[key]}`
-      : `    ${key}: ${obj1[key]}`;
-  });
+  // eslint-disable-next-line no-use-before-define
+  const result = getObjectDiff(obj1, obj2);
 
   // Formatting content
-  const diffContent = diffLines.join('\n');
-  return `{\n${diffContent}\n}`;
+  return result;
 };
 
 program
@@ -42,3 +29,23 @@ program
   .parse();
 
 export default genDiff;
+
+function getObjectDiff(obj1, obj2) {
+  const objKeys = _.union(Object.keys(obj1), Object.keys(obj2));
+  const sortedObjKeys = _.sortBy(objKeys);
+
+  const diffLines = sortedObjKeys.map((key) => {
+    if (!(key in obj2)) {
+      return `  - ${key}: ${obj1[key]}`; // deleted
+    }
+    if (!(key in obj1)) {
+      return `  + ${key}: ${obj2[key]}`; // added
+    }
+    return obj1[key] !== obj2[key]
+      ? `  - ${key}: ${obj1[key]}\n  + ${key}: ${obj2[key]}` // modified
+      : `    ${key}: ${obj1[key]}`; // not changed
+  });
+
+  const diffContent = diffLines.join('\n');
+  return `{\n${diffContent}\n}`;
+}
