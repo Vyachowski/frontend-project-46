@@ -11,10 +11,11 @@ const genDiff = (filepath1, filepath2, options) => {
 
   // Logic here
   const difference = compareObjects(originalObj, modifiedObj);
+  return JSON.stringify(difference, null ,2);
 
   // Formatting content
-  const format = options.formatType;
-  return formatDiff(originalObj, modifiedObj, difference, format);
+  // const format = options.formatType;
+  // return formatDiff(originalObj, modifiedObj, difference, format);
 };
 
 program
