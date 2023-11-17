@@ -5,12 +5,12 @@ import parseFileToObject from '../src/parser.js';
 
 const genDiff = (filepath1, filepath2) => {
   // Parsing
-  const obj1 = parseFileToObject(filepath1);
-  const obj2 = parseFileToObject(filepath2);
+  const originalObj = parseFileToObject(filepath1);
+  const modifiedObj = parseFileToObject(filepath2);
 
   // Logic here
   // eslint-disable-next-line no-use-before-define
-  const result = getObjectDiff(obj1, obj2);
+  const result = getObjectDiff(originalObj, modifiedObj);
 
   // Formatting content
   return result;
@@ -30,22 +30,38 @@ program
 
 export default genDiff;
 
-function getObjectDiff(obj1, obj2) {
-  const objKeys = _.union(Object.keys(obj1), Object.keys(obj2));
-  const sortedObjKeys = _.sortBy(objKeys);
+function compareObjects(originalObj, modifiedObj) {
+  const objsKeys = _.union(Object.keys(originalObj), Object.keys(modifiedObj));
+  const sortedObjKeys = _.sortBy(objsKeys);
 
-  const diffLines = sortedObjKeys.map((key) => {
-    if (!(key in obj2)) {
-      return `  - ${key}: ${obj1[key]}`; // deleted
+  // eslint-disable-next-line array-callback-return
+  const diff = sortedObjKeys.map((key) => {
+    if (!_.isObject(key)) {
+      if (!(key in modifiedObj)) {
+        return [key, 'deleted']; // deleted
+      }
+      if (!(key in originalObj)) {
+        return [key, 'added']; // added
+      }
+      return originalObj[key] !== modifiedObj[key]
+        ? [key, 'modified'] // modified
+        : [key, 'not changed']; // not changed
     }
-    if (!(key in obj1)) {
-      return `  + ${key}: ${obj2[key]}`; // added
-    }
-    return obj1[key] !== obj2[key]
-      ? `  - ${key}: ${obj1[key]}\n  + ${key}: ${obj2[key]}` // modified
-      : `    ${key}: ${obj1[key]}`; // not changed
   });
+  return diff;
 
-  const diffContent = diffLines.join('\n');
-  return `{\n${diffContent}\n}`;
+  // const diffLines = sortedObjKeys.map((key) => {
+  //   if (!(key in modifiedObj)) {
+  //     return `  - ${key}: ${originalObj[key]}`; // deleted
+  //   }
+  //   if (!(key in originalObj)) {
+  //     return `  + ${key}: ${modifiedObj[key]}`; // added
+  //   }
+  //   return originalObj[key] !== modifiedObj[key]
+  //     ? `  - ${key}: ${originalObj[key]}\n  + ${key}: ${modifiedObj[key]}` // modified
+  //     : `    ${key}: ${originalObj[key]}`; // not changed
+  // });
+  //
+  // const diffContent = diffLines.join('\n');
+  // return `{\n${diffContent}\n}`;
 }
