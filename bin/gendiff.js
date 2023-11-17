@@ -2,18 +2,19 @@
 import { program } from 'commander';
 import _ from 'lodash';
 import parseFileToObject from '../src/parser.js';
+import formatDiff from '../src/formatter.js';
 
-const genDiff = (filepath1, filepath2) => {
+const genDiff = (filepath1, filepath2, flag = 'stylish') => {
   // Parsing
   const originalObj = parseFileToObject(filepath1);
   const modifiedObj = parseFileToObject(filepath2);
 
   // Logic here
   // eslint-disable-next-line no-use-before-define
-  const result = compareObjects(originalObj, modifiedObj);
+  const difference = compareObjects(originalObj, modifiedObj);
 
   // Formatting content
-  return JSON.stringify(result, null, 2);
+  return formatDiff(originalObj, modifiedObj, difference, flag);
 };
 
 program
