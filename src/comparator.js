@@ -1,6 +1,8 @@
-import {
-  isObject, isArray, union, sortBy, reduce,
-} from 'lodash';
+import isArray from 'lodash/isArray.js';
+import isObject from 'lodash/isObject.js';
+import union from 'lodash/union.js';
+import sortBy from 'lodash/sortBy.js';
+import reduce from 'lodash/reduce.js';
 
 function convertArrayToObject(arr) {
   return reduce(
