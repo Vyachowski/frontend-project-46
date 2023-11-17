@@ -10,10 +10,10 @@ const genDiff = (filepath1, filepath2) => {
 
   // Logic here
   // eslint-disable-next-line no-use-before-define
-  const result = getObjectDiff(originalObj, modifiedObj);
+  const result = compareObjects(originalObj, modifiedObj);
 
   // Formatting content
-  return result;
+  return JSON.stringify(result, null, 2);
 };
 
 program
@@ -34,34 +34,40 @@ function compareObjects(originalObj, modifiedObj) {
   const objsKeys = _.union(Object.keys(originalObj), Object.keys(modifiedObj));
   const sortedObjKeys = _.sortBy(objsKeys);
 
-  // eslint-disable-next-line array-callback-return
-  const diff = sortedObjKeys.map((key) => {
-    if (!_.isObject(key)) {
-      if (!(key in modifiedObj)) {
-        return [key, 'deleted']; // deleted
-      }
-      if (!(key in originalObj)) {
-        return [key, 'added']; // added
-      }
-      return originalObj[key] !== modifiedObj[key]
-        ? [key, 'modified'] // modified
-        : [key, 'not changed']; // not changed
+  const arrayStructuredResult = sortedObjKeys.map((key) => {
+    if (_.isObject(originalObj[key]) && _.isObject(modifiedObj[key])) {
+      const nestedDiff = compareObjects(originalObj[key], modifiedObj[key]);
+      return [key, nestedDiff];
     }
-  });
-  return diff;
 
-  // const diffLines = sortedObjKeys.map((key) => {
-  //   if (!(key in modifiedObj)) {
-  //     return `  - ${key}: ${originalObj[key]}`; // deleted
-  //   }
-  //   if (!(key in originalObj)) {
-  //     return `  + ${key}: ${modifiedObj[key]}`; // added
-  //   }
-  //   return originalObj[key] !== modifiedObj[key]
-  //     ? `  - ${key}: ${originalObj[key]}\n  + ${key}: ${modifiedObj[key]}` // modified
-  //     : `    ${key}: ${originalObj[key]}`; // not changed
-  // });
-  //
-  // const diffContent = diffLines.join('\n');
-  // return `{\n${diffContent}\n}`;
+    if (!(key in modifiedObj)) {
+      return [key, 'deleted']; // deleted
+    }
+
+    if (!(key in originalObj)) {
+      return [key, 'added']; // added
+    }
+
+    return originalObj[key] !== modifiedObj[key]
+      ? [key, 'modified'] // modified
+      : [key, 'not changed']; // not changed
+  });
+
+  // eslint-disable-next-line no-use-before-define
+  return convertArrayToObject(arrayStructuredResult);
+}
+
+function convertArrayToObject(arr) {
+  return _.reduce(
+    arr,
+    (acc, [key, value]) => {
+      if (_.isArray(value)) {
+        acc[key] = convertArrayToObject(value);
+      } else {
+        acc[key] = value;
+      }
+      return acc;
+    },
+    {},
+  );
 }
