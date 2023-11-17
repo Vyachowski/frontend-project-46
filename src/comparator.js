@@ -22,7 +22,7 @@ function convertArrayToObject(arr) {
 export default function compareObjects(originalObj, modifiedObj) {
   const objsKeys = union(Object.keys(originalObj), Object.keys(modifiedObj));
   const sortedObjKeys = sortBy(objsKeys);
-
+  // Change this result to Array with data and status!!!
   const arrayStructuredResult = sortedObjKeys.map((key) => {
     if (isObject(originalObj[key]) && isObject(modifiedObj[key])) {
       const nestedDiff = compareObjects(originalObj[key], modifiedObj[key]);

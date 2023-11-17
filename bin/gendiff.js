@@ -4,7 +4,7 @@ import compareObjects from '../src/comparator.js';
 import parseFileToObject from '../src/parser.js';
 import formatDiff from '../src/formatter.js';
 
-const genDiff = (filepath1, filepath2, flag = 'stylish') => {
+const genDiff = (filepath1, filepath2, options) => {
   // Parsing
   const originalObj = parseFileToObject(filepath1);
   const modifiedObj = parseFileToObject(filepath2);
@@ -13,7 +13,8 @@ const genDiff = (filepath1, filepath2, flag = 'stylish') => {
   const difference = compareObjects(originalObj, modifiedObj);
 
   // Formatting content
-  return formatDiff(originalObj, modifiedObj, difference, flag);
+  const format = options.formatType;
+  return formatDiff(originalObj, modifiedObj, difference, format);
 };
 
 program
@@ -22,7 +23,7 @@ program
   .version('1.0.0')
   .argument('<filepath1>', 'path to the source file')
   .argument('<filepath2>', 'path to the comparing file')
-  .option('-F, --format-type <formatType>', 'output format')
+  .option('-F, --format-type <formatType>', 'output format', 'stylish')
   .action((filepath1, filepath2, formatType) => {
     console.log(genDiff(filepath1, filepath2, formatType));
   })
