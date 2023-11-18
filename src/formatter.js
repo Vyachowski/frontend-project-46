@@ -7,22 +7,26 @@ function stylishFormatter(value, replacer = ' ', spacesCount = 4) {
     }
 
     const indentSize = depth * spacesCount;
-    // const currentIndent = replacer.repeat(indentSize);
     const bracketIndent = replacer.repeat(indentSize - spacesCount);
-    const lines = Object
-      .entries(currentValue)
+    const entries = Object.entries(currentValue);
+    const lines = entries
       .map(([key, diff]) => {
-        const leftShift = diff === 'not changed' ? 0 : 2;
+        const leftShift = diff.changes === 'not changed' || diff.changes === undefined ? 0 : 2;
         let prefix = '';
-        if (diff === 'deleted') {
+        if (diff.changes === 'not changed') {
+          return `${replacer.repeat(depth * spacesCount - leftShift)}${prefix}${key}: ${iter(diff.value, depth + 1)}`;
+        }
+        if (diff.changes === 'deleted') {
           prefix = '- ';
+          return `${replacer.repeat(depth * spacesCount - leftShift)}${prefix}${key}: ${iter(diff.value, depth + 1)}`;
         }
-        if (diff === 'added') {
+        if (diff.changes === 'added') {
           prefix = '+ ';
+          return `${replacer.repeat(depth * spacesCount - leftShift)}${prefix}${key}: ${iter(diff.value, depth + 1)}`;
         }
-        if (diff === 'modified') {
-          return `${replacer.repeat(depth * spacesCount - leftShift)}- ${key}: ${iter(diff, depth + 1)}
-          ${replacer.repeat(depth * spacesCount - leftShift)}+ ${key}: ${iter(diff, depth + 1)}`;
+        if (diff.changes === 'modified') {
+          return `${replacer.repeat(depth * spacesCount - leftShift)}- ${key}: ${iter(diff.value, depth + 1)}
+${replacer.repeat(depth * spacesCount - leftShift)}+ ${key}: ${iter(diff.modifiedValue, depth + 1)}`;
         }
         return `${replacer.repeat(depth * spacesCount - leftShift)}${prefix}${key}: ${iter(diff, depth + 1)}`;
       });
