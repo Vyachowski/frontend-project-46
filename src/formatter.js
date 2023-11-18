@@ -1,11 +1,8 @@
 import isObject from 'lodash/isObject.js';
 
-function stringify(value, replacer = ' ', spacesCount = 4) {
+function stylishFormatter(value, replacer = ' ', spacesCount = 4) {
   const iter = (currentValue, depth) => {
     if (!isObject(currentValue)) {
-      if (currentValue === 'added') {
-        return null; // uncompleted part!!!
-      }
       return `${currentValue}`;
     }
 
@@ -40,11 +37,11 @@ function stringify(value, replacer = ' ', spacesCount = 4) {
   return iter(value, 1);
 }
 
-export default function formatDiff(originalObj, modifiedObj, difference, format) {
+export default function formatDiff(difference, format) {
   switch (format) {
     case 'kurwa':
       return 'Oranges are $0.59 a pound.';
     default:
-      return stringify(difference);
+      return stylishFormatter(difference);
   }
 }
