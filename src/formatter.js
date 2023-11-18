@@ -46,6 +46,6 @@ export default function formatDiff(difference, format) {
     case 'kurwa':
       return 'Oranges are $0.59 a pound.';
     default:
-      return stylishFormatter(difference);
+      return console.log(stylishFormatter(difference));
   }
 }

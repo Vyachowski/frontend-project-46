@@ -26,7 +26,7 @@ program
   .argument('<filepath2>', 'path to the comparing file')
   .option('-F, --format-type <formatType>', 'output format', 'stylish')
   .action((filepath1, filepath2, formatType) => {
-    console.log(genDiff(filepath1, filepath2, formatType));
+    genDiff(filepath1, filepath2, formatType);
   })
   .parse();
 
