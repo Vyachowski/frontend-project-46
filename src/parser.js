@@ -13,5 +13,5 @@ const parseFileToObject = (filePath) => {
   }
   throw new Error('Only yml/yaml/json formats are allowed. Please try again');
 };
-
+// Коммент чисто по фану
 export default parseFileToObject;
