@@ -2,7 +2,7 @@ import isObject from 'lodash/isObject.js';
 import union from 'lodash/union.js';
 import sortBy from 'lodash/sortBy.js';
 
-function getChangeType(originalValue, modifiedValue) {
+export function getChangeType(originalValue, modifiedValue) {
   if (originalValue === undefined) {
     return 'added';
   } if (modifiedValue === undefined) {
