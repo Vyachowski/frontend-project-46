@@ -194,11 +194,11 @@ test('Comparator: Get difference of files', () => {
 });
 
 // Formatter tests
-test('Formatter: Stylish formatter', () => {
+test('Formatter: Stylish format separate', () => {
   expect(stylishFormatter(difference)).toStrictEqual(stylishFormattedDifference);
 });
 
-test('Formatter: Main function with stylish formatter', () => {
+test('Formatter: Formatter with stylish format', () => {
   console.log = jest.fn();
   formatDiff(difference, 'stylish');
   expect(console.log).toHaveBeenCalledWith(stylishFormattedDifference);

@@ -4,18 +4,16 @@ import compareObjects from '../src/comparator.js';
 import parseFileToObject from '../src/parser.js';
 import formatDiff from '../src/formatter/index.js';
 
-const genDiff = (filepath1, filepath2, options) => {
+const genDiff = (filepath1, filepath2, formatName) => {
   // Parsing
   const originalObj = parseFileToObject(filepath1);
   const modifiedObj = parseFileToObject(filepath2);
 
   // Logic here
   const difference = compareObjects(originalObj, modifiedObj);
-  // return JSON.stringify(difference, null, 2);
 
   // Formatting content
-  const format = options.formatType;
-  return formatDiff(difference, format);
+  return formatDiff(difference, formatName);
 };
 
 program
@@ -24,9 +22,9 @@ program
   .version('1.0.0')
   .argument('<filepath1>', 'path to the source file')
   .argument('<filepath2>', 'path to the comparing file')
-  .option('-F, --format-type <formatType>', 'output format', 'stylish')
-  .action((filepath1, filepath2, formatType) => {
-    genDiff(filepath1, filepath2, formatType);
+  .option('-F, --format-type <formatName>', 'output format', 'stylish')
+  .action((filepath1, filepath2, options) => {
+    genDiff(filepath1, filepath2, options.formatName);
   })
   .parse();
 
