@@ -79,6 +79,15 @@ test('Parser: existing file, plain – yml, yaml, json', () => {
   expect(parseFileToObject('__fixtures__/file2-plain.json')).toStrictEqual(filePlain2);
 });
 
+test('Parser: existing file, plain – yml, yaml, json, absolute paths', () => {
+  expect(parseFileToObject('/Users/vyachowski/Sites/Educational Projects/Hexlet/JS/frontend-project-46/__fixtures__/file1-plain.yml')).toStrictEqual(filePlain1);
+  expect(parseFileToObject('/Users/vyachowski/Sites/Educational Projects/Hexlet/JS/frontend-project-46/__fixtures__/file2-plain.yml')).toStrictEqual(filePlain2);
+  expect(parseFileToObject('/Users/vyachowski/Sites/Educational Projects/Hexlet/JS/frontend-project-46/__fixtures__/file1-plain.yaml')).toStrictEqual(filePlain1);
+  expect(parseFileToObject('/Users/vyachowski/Sites/Educational Projects/Hexlet/JS/frontend-project-46/__fixtures__/file2-plain.yaml')).toStrictEqual(filePlain2);
+  expect(parseFileToObject('/Users/vyachowski/Sites/Educational Projects/Hexlet/JS/frontend-project-46/__fixtures__/file1-plain.json')).toStrictEqual(filePlain1);
+  expect(parseFileToObject('/Users/vyachowski/Sites/Educational Projects/Hexlet/JS/frontend-project-46/__fixtures__/file2-plain.json')).toStrictEqual(filePlain2);
+});
+
 test('Parser: non-existing file, plain – yml, yaml, json', () => {
   expect(() => {
     parseFileToObject('__fixtures__/nonexistence-plain.yml');
@@ -106,6 +115,12 @@ test('Parser: non-existing file, nested – yml, yaml, json', () => {
   expect(() => {
     parseFileToObject('nonexistence.json');
   }).toThrow('ENOENT: no such file or directory');
+});
+
+test('Parser: existing file, non-json/yaml format', () => {
+  expect(() => {
+    parseFileToObject('__fixtures__/sample.png');
+  }).toThrow('Only yml/yaml/json formats are allowed. Please try again');
 });
 
 // Comparator test
