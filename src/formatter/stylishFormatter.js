@@ -1,6 +1,6 @@
 import isObject from 'lodash/isObject.js';
 
-function stylishFormatter(value, replacer = ' ', spacesCount = 4) {
+export default function stylishFormatter(value, replacer = ' ', spacesCount = 4) {
   const iter = (currentValue, depth) => {
     if (!isObject(currentValue)) {
       return `${currentValue}`;
@@ -39,13 +39,4 @@ ${replacer.repeat(depth * spacesCount - leftShift)}+ ${key}: ${iter(diff.modifie
   };
 
   return iter(value, 1);
-}
-
-export default function formatDiff(difference, format) {
-  switch (format) {
-    case 'kurwa':
-      return 'Oranges are $0.59 a pound.';
-    default:
-      return console.log(stylishFormatter(difference));
-  }
 }
