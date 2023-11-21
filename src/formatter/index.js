@@ -1,4 +1,4 @@
-import stylishFormatter from './stylishFormatter.js';
+import stylishFormatter from './formats/stylishFormatter.js';
 
 export default function formatDiff(difference, format) {
   switch (format) {

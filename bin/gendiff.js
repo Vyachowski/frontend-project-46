@@ -2,7 +2,7 @@
 import { program } from 'commander';
 import compareObjects from '../src/comparator.js';
 import parseFileToObject from '../src/parser.js';
-import formatDiff from '../src/formatter.js';
+import formatDiff from '../src/formatter/index.js';
 
 const genDiff = (filepath1, filepath2, options) => {
   // Parsing

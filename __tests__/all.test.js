@@ -2,7 +2,7 @@ import jest from 'jest-mock';
 import parseFileToObject from '../src/parser.js';
 import compareObjects, { getChangeType } from '../src/comparator.js';
 import formatDiff from '../src/formatter/index.js';
-import stylishFormatter from '../src/formatter/stylishFormatter.js';
+import stylishFormatter from '../src/formatter/formats/stylishFormatter.js';
 
 // Test data
 const filePlain1 = {
