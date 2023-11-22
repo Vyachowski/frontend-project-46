@@ -10,6 +10,16 @@ export default function plainFormatter(difference) {
     }
     return value;
   };
+
+  const defineStringEnd = (changes, value, updatedValue) => {
+    if (changes === 'added') {
+      return ` with value: ${formatValue(value)}`;
+    }
+    if (changes === 'updated') {
+      return `. From ${formatValue(value)} to ${formatValue(updatedValue)}`;
+    }
+    return '';
+  };
   // eslint-disable-next-line consistent-return
   const iter = (currentValue, path = '') => {
     // eslint-disable-next-line no-prototype-builtins
@@ -18,13 +28,7 @@ export default function plainFormatter(difference) {
       // console.log('Edge case called\n');
       const { changes, value, updatedValue } = currentValue;
       if (!(['not changed'].includes(currentValue.changes))) {
-        let stringEnd = '';
-        if (changes === 'added') {
-          stringEnd = ` with value: ${formatValue(value)}`;
-        }
-        if (changes === 'updated') {
-          stringEnd = `. From ${formatValue(value)} to ${formatValue(updatedValue)}`;
-        }
+        const stringEnd = defineStringEnd(changes, value, updatedValue);
         return `Property ${path} was ${changes}${stringEnd}`;
       }
       return 'empty entity';
