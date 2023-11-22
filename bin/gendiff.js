@@ -22,9 +22,10 @@ program
   .version('1.0.0')
   .argument('<filepath1>', 'path to the source file')
   .argument('<filepath2>', 'path to the comparing file')
-  .option('-F, --format-type <formatName>', 'output format', 'stylish')
+  .option('-F, --format <formatName>', 'output format (default: "stylish")', 'stylish')
   .action((filepath1, filepath2, options) => {
-    genDiff(filepath1, filepath2, options.formatName);
+    const { format } = options;
+    genDiff(filepath1, filepath2, format);
   })
   .parse();
 

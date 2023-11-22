@@ -74,10 +74,10 @@ const fileNested2 = {
 
 const difference = {
   common: {
-    follow: { changes: 'added', value: false }, setting1: { changes: 'not changed', value: 'Value 1' }, setting2: { changes: 'deleted', value: 200 }, setting3: { changes: 'modified', modifiedValue: null, value: true }, setting4: { changes: 'added', value: 'blah blah' }, setting5: { changes: 'added', value: { key5: 'value5' } }, setting6: { doge: { wow: { changes: 'modified', modifiedValue: 'so much', value: '' } }, key: { changes: 'not changed', value: 'value' }, ops: { changes: 'added', value: 'vops' } },
+    follow: { changes: 'added', value: false }, setting1: { changes: 'not changed', value: 'Value 1' }, setting2: { changes: 'removed', value: 200 }, setting3: { changes: 'updated', updatedValue: null, value: true }, setting4: { changes: 'added', value: 'blah blah' }, setting5: { changes: 'added', value: { key5: 'value5' } }, setting6: { doge: { wow: { changes: 'updated', updatedValue: 'so much', value: '' } }, key: { changes: 'not changed', value: 'value' }, ops: { changes: 'added', value: 'vops' } },
   },
-  group1: { baz: { changes: 'modified', modifiedValue: 'bars', value: 'bas' }, foo: { changes: 'not changed', value: 'bar' }, nest: { changes: 'modified', modifiedValue: 'str', value: { key: 'value' } } },
-  group2: { changes: 'deleted', value: { abc: 12345, deep: { id: 45 } } },
+  group1: { baz: { changes: 'updated', updatedValue: 'bars', value: 'bas' }, foo: { changes: 'not changed', value: 'bar' }, nest: { changes: 'updated', updatedValue: 'str', value: { key: 'value' } } },
+  group2: { changes: 'removed', value: { abc: 12345, deep: { id: 45 } } },
   group3: { changes: 'added', value: { deep: { id: { number: 45 } }, fee: 100500 } },
 };
 
@@ -183,10 +183,10 @@ test('Parser: existing file, non-json/yaml format', () => {
 // Comparator tests
 test('Comparator: Get status of key', () => {
   expect(getChangeType('value', 'value')).toStrictEqual('not changed');
-  expect(getChangeType('value', 'value2')).toStrictEqual('modified');
-  expect(getChangeType('value2', 'value')).toStrictEqual('modified');
+  expect(getChangeType('value', 'value2')).toStrictEqual('updated');
+  expect(getChangeType('value2', 'value')).toStrictEqual('updated');
   expect(getChangeType(undefined, 'value')).toStrictEqual('added');
-  expect(getChangeType('undefined', undefined)).toStrictEqual('deleted');
+  expect(getChangeType('undefined', undefined)).toStrictEqual('removed');
 });
 
 test('Comparator: Get difference of files', () => {

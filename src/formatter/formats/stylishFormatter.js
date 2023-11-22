@@ -16,7 +16,7 @@ export default function stylishFormatter(value, replacer = ' ', spacesCount = 4)
         if (diff.changes === 'not changed') {
           return `${replacer.repeat(depth * spacesCount - leftShift)}${prefix}${key}: ${iter(diff.value, depth + 1)}`;
         }
-        if (diff.changes === 'deleted') {
+        if (diff.changes === 'removed') {
           prefix = '- ';
           return `${replacer.repeat(depth * spacesCount - leftShift)}${prefix}${key}: ${iter(diff.value, depth + 1)}`;
         }
@@ -24,9 +24,9 @@ export default function stylishFormatter(value, replacer = ' ', spacesCount = 4)
           prefix = '+ ';
           return `${replacer.repeat(depth * spacesCount - leftShift)}${prefix}${key}: ${iter(diff.value, depth + 1)}`;
         }
-        if (diff.changes === 'modified') {
+        if (diff.changes === 'updated') {
           return `${replacer.repeat(depth * spacesCount - leftShift)}- ${key}: ${iter(diff.value, depth + 1)}
-${replacer.repeat(depth * spacesCount - leftShift)}+ ${key}: ${iter(diff.modifiedValue, depth + 1)}`;
+${replacer.repeat(depth * spacesCount - leftShift)}+ ${key}: ${iter(diff.updatedValue, depth + 1)}`;
         }
         return `${replacer.repeat(depth * spacesCount - leftShift)}${prefix}${key}: ${iter(diff, depth + 1)}`;
       });

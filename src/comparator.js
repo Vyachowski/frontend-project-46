@@ -6,9 +6,9 @@ export function getChangeType(originalValue, modifiedValue) {
   if (originalValue === undefined) {
     return 'added';
   } if (modifiedValue === undefined) {
-    return 'deleted';
+    return 'removed';
   } if (originalValue !== modifiedValue) {
-    return 'modified';
+    return 'updated';
   }
   return 'not changed';
 }
@@ -31,8 +31,8 @@ export default function compareObjects(originalObj, modifiedObj) {
       if (changeType === 'added') {
         diff[key].value = modifiedObj[key];
       }
-      if (changeType === 'modified') {
-        diff[key].modifiedValue = modifiedObj[key];
+      if (changeType === 'updated') {
+        diff[key].updatedValue = modifiedObj[key];
       }
     }
   });
