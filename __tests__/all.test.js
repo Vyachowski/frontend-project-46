@@ -4,6 +4,7 @@ import compareObjects, { getChangeType } from '../src/comparator.js';
 import formatDiff from '../src/formatter/index.js';
 import stylishFormatter from '../src/formatter/formats/stylishFormatter.js';
 
+// eslint-disable max-len
 // Test data
 const filePlain1 = {
   host: 'hexlet.io', timeout: 50, proxy: '123.234.53.22', follow: false,
@@ -134,15 +135,6 @@ test('Parser: existing file, plain – yml, yaml, json', () => {
   expect(parseFileToObject('__fixtures__/file2-plain.yaml')).toStrictEqual(filePlain2);
   expect(parseFileToObject('__fixtures__/file1-plain.json')).toStrictEqual(filePlain1);
   expect(parseFileToObject('__fixtures__/file2-plain.json')).toStrictEqual(filePlain2);
-});
-
-test('Parser: existing file, plain – yml, yaml, json, absolute paths', () => {
-  expect(parseFileToObject('/Users/vyachowski/Sites/Educational Projects/Hexlet/JS/frontend-project-46/__fixtures__/file1-plain.yml')).toStrictEqual(filePlain1);
-  expect(parseFileToObject('/Users/vyachowski/Sites/Educational Projects/Hexlet/JS/frontend-project-46/__fixtures__/file2-plain.yml')).toStrictEqual(filePlain2);
-  expect(parseFileToObject('/Users/vyachowski/Sites/Educational Projects/Hexlet/JS/frontend-project-46/__fixtures__/file1-plain.yaml')).toStrictEqual(filePlain1);
-  expect(parseFileToObject('/Users/vyachowski/Sites/Educational Projects/Hexlet/JS/frontend-project-46/__fixtures__/file2-plain.yaml')).toStrictEqual(filePlain2);
-  expect(parseFileToObject('/Users/vyachowski/Sites/Educational Projects/Hexlet/JS/frontend-project-46/__fixtures__/file1-plain.json')).toStrictEqual(filePlain1);
-  expect(parseFileToObject('/Users/vyachowski/Sites/Educational Projects/Hexlet/JS/frontend-project-46/__fixtures__/file2-plain.json')).toStrictEqual(filePlain2);
 });
 
 test('Parser: non-existing file, plain – yml, yaml, json', () => {
