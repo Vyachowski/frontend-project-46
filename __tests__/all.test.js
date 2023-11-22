@@ -191,6 +191,7 @@ test('Formatter: Stylish format separate', () => {
 });
 
 test('Formatter: Formatter with stylish format', () => {
+  // eslint-disable-next-line
   console.log = jest.fn();
   console.log(formatDiff(difference, 'stylish'));
   expect(console.log).toHaveBeenCalledWith(stylishFormattedDifference);
