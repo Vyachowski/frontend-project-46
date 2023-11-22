@@ -36,30 +36,3 @@ export default function compareObjects(originalObj, modifiedObj) {
     return { ...acc, [key]: createDiffEntry(key, originalObj[key], modifiedObj[key]) };
   }, {});
 }
-
-// export default function compareObjects(originalObj, modifiedObj) {
-//   const diff = {};
-//
-//   const objsKeys = union(Object.keys(originalObj), Object.keys(modifiedObj));
-//   const sortedObjKeys = sortBy(objsKeys);
-//
-//   sortedObjKeys.forEach((key) => {
-//     if (isObject(originalObj[key]) && isObject(modifiedObj[key])) {
-//       diff[key] = compareObjects(originalObj[key], modifiedObj[key]);
-//     } else {
-//       const changeType = getChangeType(originalObj[key], modifiedObj[key]);
-//       diff[key] = {
-//         changes: changeType,
-//         value: originalObj[key],
-//       };
-//       if (changeType === 'added') {
-//         diff[key].value = modifiedObj[key];
-//       }
-//       if (changeType === 'updated') {
-//         diff[key].updatedValue = modifiedObj[key];
-//       }
-//     }
-//   });
-//
-//   return diff;
-// }
