@@ -64,8 +64,12 @@ ___
 
 #### CLI of Gendiff
 
-[![asciicast](https://asciinema.org/a/570068.svg)](https://asciinema.org/a/570068)
+[![asciicast](https://asciinema.org/a/622629.svg)](https://asciinema.org/a/622629)
 
 #### Show difference between JSON in default format
 
-[![asciicast](https://asciinema.org/a/570068.svg)](https://asciinema.org/a/570068)
+[![asciicast](https://asciinema.org/a/622632.svg)](https://asciinema.org/a/622632)
+
+#### Show difference between JSON with options
+
+[![asciicast](https://asciinema.org/a/622633.svg)](https://asciinema.org/a/622633)
