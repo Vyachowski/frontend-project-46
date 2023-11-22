@@ -93,3 +93,10 @@ test('Formatter: Formatter with stylish format', () => {
   console.log(formatDiff(difference, 'stylish'));
   expect(console.log).toHaveBeenCalledWith(stylishFormattedDifference);
 });
+
+test('Formatter: Formatter with plain format', () => {
+  // eslint-disable-next-line
+  console.log = jest.fn();
+  console.log(formatDiff(difference, 'plain'));
+  expect(console.log).toHaveBeenCalledWith(plainFormattedDifference);
+});
