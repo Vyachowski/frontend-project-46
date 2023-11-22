@@ -156,6 +156,17 @@ test('Parser: existing file, nested – yml, yaml, json', () => {
   expect(parseFileToObject('__fixtures__/file2.json')).toStrictEqual(fileNested2);
 });
 
+test('Parser: existing file, plain – yml, yaml, json, absolute paths', () => {
+  const absolutePathToFolder1 = `${process.cwd()}/__fixtures__/file1-plain.`;
+  const absolutePathToFolder2 = `${process.cwd()}/__fixtures__/file2-plain.`;
+  expect(parseFileToObject(`${absolutePathToFolder1}yml`)).toStrictEqual(filePlain1);
+  expect(parseFileToObject(`${absolutePathToFolder2}yml`)).toStrictEqual(filePlain2);
+  expect(parseFileToObject(`${absolutePathToFolder1}yaml`)).toStrictEqual(filePlain1);
+  expect(parseFileToObject(`${absolutePathToFolder2}yaml`)).toStrictEqual(filePlain2);
+  expect(parseFileToObject(`${absolutePathToFolder1}json`)).toStrictEqual(filePlain1);
+  expect(parseFileToObject(`${absolutePathToFolder2}json`)).toStrictEqual(filePlain2);
+});
+
 test('Parser: non-existing file, nested – yml, yaml, json', () => {
   expect(() => {
     parseFileToObject('__fixtures__/nonexistence.yml');
