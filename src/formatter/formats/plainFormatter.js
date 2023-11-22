@@ -14,7 +14,7 @@ export default function plainFormatter(difference) {
         if (changes === 'updated') {
           stringEnd = `. From ${isObject(value) ? '[complex value]' : value} to ${isObject(updatedValue) ? '[complex value]' : updatedValue}`;
         }
-        return `Property ${path.join('.')} was ${changes}${stringEnd}`;
+        return `Property ${path} was ${changes}${stringEnd}`;
       }
       return 'empty entity';
     }
