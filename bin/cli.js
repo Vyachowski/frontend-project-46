@@ -8,7 +8,7 @@ program
   .version('1.0.0')
   .argument('<filepath1>', 'path to the source file')
   .argument('<filepath2>', 'path to the comparing file')
-  .option('-f, --format <formatName>', 'output format (default: "stylish")', 'stylish')
+  .option('-f, --format', 'output format', 'stylish')
   .action((filepath1, filepath2, options) => {
     const { format } = options;
     console.log(genDiff(filepath1, filepath2, format));
