@@ -200,6 +200,6 @@ test('Formatter: Stylish format separate', () => {
 
 test('Formatter: Formatter with stylish format', () => {
   console.log = jest.fn();
-  formatDiff(difference, 'stylish');
+  console.log(formatDiff(difference, 'stylish'));
   expect(console.log).toHaveBeenCalledWith(stylishFormattedDifference);
 });
