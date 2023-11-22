@@ -6,13 +6,14 @@
 
 # Hexlet JS Project – JSON Difference generator
 
-This is an educational project on the "Front-end Developer" course at Hexlet programming school, designed to teach the basics of Javascript.
+This project is centered around concepts like higher-order functions, recursion, and configuring the environment.
 
 Чтобы читать **Readme на русском**  перейдите по [этой ссылке](https://github.com/Vyachowski/frontend-project-46/blob/main/README_ru.md)
 
 ## Description
 
-This project is centered around concepts like higher-order functions, recursion, and configuring the environment.
+Library and CLI application for comparing JSON structures, providing a seamless way to visualize and analyze differences.
+
 ## Getting Started
 
 ### Dependencies
