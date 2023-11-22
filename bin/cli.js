@@ -10,6 +10,6 @@ program
   .option('-F, --format <formatName>', 'output format (default: "stylish")', 'stylish')
   .action((filepath1, filepath2, options) => {
     const { format } = options;
-    genDiff(filepath1, filepath2, format);
+    console.log(genDiff(filepath1, filepath2, format));
   })
   .parse();
