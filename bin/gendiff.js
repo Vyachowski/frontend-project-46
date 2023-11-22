@@ -8,7 +8,7 @@ const genDiff = (filepath1, filepath2, formatName) => {
   const originalObj = parseFileToObject(filepath1);
   const modifiedObj = parseFileToObject(filepath2);
 
-  // Logic here
+  // Create difference object
   const difference = compareObjects(originalObj, modifiedObj);
 
   // Formatting content

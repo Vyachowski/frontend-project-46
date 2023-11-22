@@ -5,10 +5,10 @@ import JSONFormatter from './formats/JSONFormatter.js';
 export default function formatDiff(difference, format) {
   switch (format) {
     case 'json':
-      return console.log(JSONFormatter(difference));
+      return JSONFormatter(difference);
     case 'plain':
-      return console.log(plainFormatter(difference));
+      return plainFormatter(difference);
     default:
-      return console.log(stylishFormatter(difference));
+      return stylishFormatter(difference);
   }
 }
