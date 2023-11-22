@@ -20,21 +20,19 @@ export default function plainFormatter(difference) {
     }
 
     const entries = Object.entries(currentValue);
-    console.log('Current Value is\n', currentValue);
+    // console.log('Current Value is\n', currentValue);
     const lines = entries.map(([key, diff]) => {
       const property = path ? `${path}.${key}` : key;
-      const oldValue = iter(diff?.value);
-      const updatedValue = iter(diff?.updatedValue);
 
       switch (diff.changes) {
         case 'added':
-          return `Property '${property}' was added with value: ${oldValue}`;
+          return isObject(diff.value) ? `Property '${property}' was added with value: ${diff.value}\n${iter(diff.value, key)}` : `Property '${property}' was added with value: ${diff.value}`;
         case 'removed':
-          return `Property '${property}' was removed`;
+          return isObject(diff.value) ? `Property '${property}' was removed\n${iter(diff.value, key)}` : `Property '${property}' was removed`;
         case 'updated':
-          return `Property '${property}' was updated. From ${oldValue} to ${updatedValue}`;
+          return isObject(diff.value) ? `Property '${property}' was updated. From ${diff.value} to ${diff.updatedValue}\n${iter(diff.value, key)}` : `Property '${property}' was updated. From ${diff.value} to ${diff.updatedValue}`;
         default:
-          return 'empty entity';
+          return isObject(diff.value) ? `${iter(diff.value, key)}` : 'empty entity';
       }
     });
 
