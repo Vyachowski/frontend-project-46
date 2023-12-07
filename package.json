@@ -2,10 +2,10 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/Vyachowski/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/Vyachowski/frontend-project-46/actions)",
-  "main": "bin/gendiff.js",
+  "main": "src/gendiff.js",
   "type": "module",
   "bin": {
-    "gendiff": "bin/cli.js"
+    "gendiff": "bin/gendiff.js"
   },
   "scripts": {
     "test": "jest"

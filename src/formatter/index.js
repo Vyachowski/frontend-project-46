@@ -1,6 +1,6 @@
 import stylishFormatter from './formats/stylishFormatter.js';
 import plainFormatter from './formats/plainFormatter.js';
-import JSONFormatter from './formats/JSONFormatter.js';
+import JSONFormatter from './formats/jsonFormatter.js';
 
 export default function formatDiff(difference, format) {
   switch (format) {
