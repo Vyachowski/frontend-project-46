@@ -1,13 +1,22 @@
 // Test data
-const filePlain1 = {
+
+const absolutePath1 = '__fixtures__/file1';
+const absolutePath2 = '__fixtures__/file2';
+const fileContentRead = `{
+  "host": "hexlet.io",
+  "timeout": 50,
+  "proxy": "123.234.53.22",
+  "follow": false
+}`;
+const fileContentPlain1 = {
   host: 'hexlet.io', timeout: 50, proxy: '123.234.53.22', follow: false,
 };
 
-const filePlain2 = {
+const fileContentPlain2 = {
   host: 'hexlet.io', timeout: 20, verbose: true,
 };
 
-const fileNested1 = {
+const fileContentNested1 = {
   common: {
     setting1: 'Value 1',
     setting2: 200,
@@ -34,7 +43,7 @@ const fileNested1 = {
   },
 };
 
-const fileNested2 = {
+const fileContentNested2 = {
   common: {
     follow: false,
     setting1: 'Value 1',
@@ -133,10 +142,13 @@ Property 'group2' was removed
 Property 'group3' was added with value: [complex value]`;
 
 export {
-  filePlain1,
-  filePlain2,
-  fileNested2,
-  fileNested1,
+  absolutePath1,
+  absolutePath2,
+  fileContentRead,
+  fileContentPlain1,
+  fileContentPlain2,
+  fileContentNested1,
+  fileContentNested2,
   difference,
   stylishFormattedDifference,
   plainFormattedDifference,
