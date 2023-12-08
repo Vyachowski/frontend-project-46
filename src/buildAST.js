@@ -13,7 +13,8 @@ export default function buildAST(originalObj, modifiedObj) {
     if (!has(modifiedObj, key)) return { key, type: 'removed', originalValue };
     if (isObject(originalValue) && isObject(modifiedValue)) {
       return { key, type: 'nested', children: buildAST(originalValue, modifiedValue) };
-    } if (originalValue !== modifiedValue) {
+    }
+    if (originalValue !== modifiedValue) {
       return {
         key, type: 'updated', originalValue, modifiedValue,
       };
