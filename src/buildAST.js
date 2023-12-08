@@ -31,23 +31,23 @@ export default function buildAST(originalObj, modifiedObj) {
   return sortBy(objsKeys).map((key) => {
     const originalValue = originalObj[key];
     const modifiedValue = modifiedObj[key];
-    const node = { key };
-    let resultNode;
+    const nodeTemplate = { key };
+    let node;
 
     if (!has(originalObj, key)) {
-      resultNode = { ...node, type: 'added', modifiedValue };
+      node = { ...nodeTemplate, type: 'added', modifiedValue };
     } else if (!has(modifiedObj, key)) {
-      resultNode = { ...node, type: 'removed', originalValue };
+      node = { ...nodeTemplate, type: 'removed', originalValue };
     } else if (isObject(originalValue) && isObject(modifiedValue)) {
-      resultNode = { ...node, type: 'nested', children: buildAST(originalValue, modifiedValue) };
+      node = { ...nodeTemplate, type: 'nested', children: buildAST(originalValue, modifiedValue) };
     } else if (originalValue !== modifiedValue) {
-      resultNode = {
-        ...node, type: 'updated', originalValue, modifiedValue,
+      node = {
+        ...nodeTemplate, type: 'updated', originalValue, modifiedValue,
       };
     } else {
-      resultNode = { ...node, type: 'unchanged', originalValue };
+      node = { ...nodeTemplate, type: 'unchanged', originalValue };
     }
 
-    return resultNode;
+    return node;
   });
 }
