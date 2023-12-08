@@ -22,8 +22,7 @@ export default function plainFormatter(difference) {
   };
 
   const iter = (currentValue, path = '') => {
-    // eslint-disable-next-line no-prototype-builtins
-    if (currentValue.hasOwnProperty('value') && !isObject(currentValue.value)) {
+    if (Object.hasOwn(currentValue, 'value') && !isObject(currentValue.value)) {
       const { changes, value, updatedValue } = currentValue;
       if (!(['not changed'].includes(currentValue.changes))) {
         const stringEnd = defineStringEnd(changes, value, updatedValue);
