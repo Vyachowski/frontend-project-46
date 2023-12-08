@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import compareObjects from './comparator.js';
+import buildAST from './buildAST.js';
 import parseFileToObject from './parser.js';
 import formatDiff from './formatter/index.js';
 import { getFileExtension, readFileContent } from './utils.js';
@@ -14,7 +14,7 @@ const genDiff = (filepath1, filepath2, formatName) => {
   const modifiedObj = parseFileToObject(fileContent2, fileFormat2);
 
   // Create difference object
-  const difference = compareObjects(originalObj, modifiedObj);
+  const difference = buildAST(originalObj, modifiedObj);
 
   // Formatting content
   return formatDiff(difference, formatName);

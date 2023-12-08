@@ -1,6 +1,5 @@
 import jest from 'jest-mock';
 import parseFileToObject from '../src/parser.js';
-import { getChangeType } from '../src/comparator.js';
 import formatDiff from '../src/formatter/index.js';
 import stylishFormatter from '../src/formatter/formats/stylishFormatter.js';
 import {
@@ -11,9 +10,10 @@ import {
   fileContentNested1,
   difference,
   stylishFormattedDifference,
-  plainFormattedDifference,
+  plainFormattedDifference, fileContentNested2,
 } from '../__fixtures__/testData.js';
 import { getFileExtension, readFileContent } from '../src/utils.js';
+import buildAST from '../src/buildAST.js';
 
 // Utilities test
 test('File extension checker: existing file – yml, json', () => {
@@ -42,17 +42,9 @@ test('Parser: existing file, nested – yml, yaml, json', () => {
 });
 
 // Comparator tests
-test('Comparator: Get status of key', () => {
-  expect(getChangeType('value', 'value')).toStrictEqual('not changed');
-  expect(getChangeType('value', 'value2')).toStrictEqual('updated');
-  expect(getChangeType('value2', 'value')).toStrictEqual('updated');
-  expect(getChangeType(undefined, 'value')).toStrictEqual('added');
-  expect(getChangeType('undefined', undefined)).toStrictEqual('removed');
+test('BuildAST: Get difference of files', () => {
+  expect(buildAST(fileContentNested1, fileContentNested2)).toStrictEqual(difference);
 });
-
-// test('Comparator: Get difference of files', () => {
-//   expect(compareObjects(fileNested1, fileNested2)).toStrictEqual(difference);
-// });
 
 // Formatter tests
 test('Formatter: Stylish format separate', () => {
