@@ -9,37 +9,17 @@ export default function buildAST(originalObj, modifiedObj) {
   return sortedObjKeys.map((key) => {
     const originalValue = originalObj[key];
     const modifiedValue = modifiedObj[key];
-    // unchanged, added, modified, nested, removed
-    if (!has(originalObj, key)) {
-      return {
-        key,
-        type: 'added',
-        modifiedValue,
-      };
-    } if (!has(modifiedObj, key)) {
-      return {
-        key,
-        type: 'removed',
-        originalValue,
-      };
-    } if (isObject(originalValue) && isObject(modifiedValue)) {
-      return {
-        key,
-        type: 'nested',
-        children: buildAST(originalValue, modifiedValue),
-      };
+    if (!has(originalObj, key)) return { key, type: 'added', modifiedValue };
+    if (!has(modifiedObj, key)) return { key, type: 'removed', originalValue };
+    if (isObject(originalValue) && isObject(modifiedValue)) {
+      return { key, type: 'nested', children: buildAST(originalValue, modifiedValue) };
     } if (originalValue !== modifiedValue) {
       return {
-        key,
-        type: 'updated',
-        originalValue,
-        modifiedValue,
+        key, type: 'updated', originalValue, modifiedValue,
       };
     }
     return {
-      key,
-      type: 'unchanged',
-      originalValue,
+      key, type: 'unchanged', originalValue,
     };
   });
 }
