@@ -84,6 +84,32 @@ const difference = {
   group3: { changes: 'added', value: { deep: { id: { number: 45 } }, fee: 100500 } },
 };
 
+const astExample = [{
+  children: [{ key: 'follow', modifiedValue: false, type: 'added' }, { key: 'setting1', originalValue: 'Value 1', type: 'unchanged' }, { key: 'setting2', originalValue: 200, type: 'removed' }, {
+    key: 'setting3', modifiedValue: null, originalValue: true, type: 'updated',
+  }, { key: 'setting4', modifiedValue: 'blah blah', type: 'added' }, { key: 'setting5', modifiedValue: { key5: 'value5' }, type: 'added' }, {
+    children: [{
+      children: [{
+        key: 'wow', modifiedValue: 'so much', originalValue: '', type: 'updated',
+      }],
+      key: 'doge',
+      type: 'nested',
+    }, { key: 'key', originalValue: 'value', type: 'unchanged' }, { key: 'ops', modifiedValue: 'vops', type: 'added' }],
+    key: 'setting6',
+    type: 'nested',
+  }],
+  key: 'common',
+  type: 'nested',
+}, {
+  children: [{
+    key: 'baz', modifiedValue: 'bars', originalValue: 'bas', type: 'updated',
+  }, { key: 'foo', originalValue: 'bar', type: 'unchanged' }, {
+    key: 'nest', modifiedValue: 'str', originalValue: { key: 'value' }, type: 'updated',
+  }],
+  key: 'group1',
+  type: 'nested',
+}, { key: 'group2', originalValue: { abc: 12345, deep: { id: 45 } }, type: 'removed' }, { key: 'group3', modifiedValue: { deep: { id: { number: 45 } }, fee: 100500 }, type: 'added' }];
+
 const stylishFormattedDifference = `{
     common: {
       + follow: false
@@ -149,6 +175,7 @@ export {
   fileContentPlain2,
   fileContentNested1,
   fileContentNested2,
+  astExample,
   difference,
   stylishFormattedDifference,
   plainFormattedDifference,
