@@ -28,18 +28,15 @@ function iterateNodes(nodes, path) {
   const lines = nodes.map((node) => {
     const { key, type, children } = node;
     const property = path ? `${path}.${key}` : key;
-    let line;
+
     switch (type) {
       case 'nested':
-        line = iterateNodes(children, property);
-        break;
+        return iterateNodes(children, property);
       case 'unchanged':
-        line = undefined;
-        break;
+        return undefined;
       default:
-        line = createDiffLine(property, type, node.originalValue, node.modifiedValue);
+        return createDiffLine(property, type, node.originalValue, node.modifiedValue);
     }
-    return line;
   });
 
   return `${lines.filter((value) => value !== undefined).join('\n')}`;
