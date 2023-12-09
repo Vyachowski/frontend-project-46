@@ -45,6 +45,7 @@ test('AST builder: Nested files', () => {
 
 // Formatter tests
 test('Formatter: Formatter with plain format', () => {
+  // eslint-disable-next-line
   console.log = jest.fn();
   console.log(formatDiff(astExample, 'plain'));
   expect(console.log).toHaveBeenCalledWith(plainFormattedDifference);
