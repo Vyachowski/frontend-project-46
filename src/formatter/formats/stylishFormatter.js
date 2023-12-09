@@ -24,20 +24,26 @@ function stringify(value, depth) {
 export default function stylishFormatter(difference, depth = 1) {
   const nextDepth = depth + 1;
   const lines = difference.map((node) => {
-    let line;
     const { key, type, children } = node;
-    if (type === 'nested') {
-      line = `${getIndentation(depth)}${key}: ${stylishFormatter(children, nextDepth)}`;
-    } else if (type === 'added') {
-      line = `${getIndentation(depth, '+')}${key}: ${stringify(node.modifiedValue, nextDepth)}`;
-    } else if (type === 'removed') {
-      line = `${getIndentation(depth, '-')}${key}: ${stringify(node.originalValue, nextDepth)}`;
-    } else if (type === 'updated') {
-      line = `${getIndentation(depth, '-')}${key}: ${stringify(node.originalValue, nextDepth)}\n${getIndentation(depth, '+')}${key}: ${stringify(node.modifiedValue, nextDepth)}`;
-    } else {
-      line = `${getIndentation(depth)}${key}: ${node.originalValue}`;
+    let line;
+    switch (type) {
+      case 'nested':
+        line = `${getIndentation(depth)}${key}: ${stylishFormatter(children, nextDepth)}`;
+        break;
+      case 'added':
+        line = `${getIndentation(depth, '+')}${key}: ${stringify(node.modifiedValue, nextDepth)}`;
+        break;
+      case 'removed':
+        line = `${getIndentation(depth, '-')}${key}: ${stringify(node.originalValue, nextDepth)}`;
+        break;
+      case 'updated':
+        line = `${getIndentation(depth, '-')}${key}: ${stringify(node.originalValue, nextDepth)}\n${getIndentation(depth, '+')}${key}: ${stringify(node.modifiedValue, nextDepth)}`;
+        break;
+      default:
+        line = `${getIndentation(depth)}${key}: ${node.originalValue}`;
     }
     return line;
   });
+
   return `{\n${lines.join('\n')}\n${getBracketIndentation(depth)}}`;
 }
