@@ -1,17 +1,12 @@
 import isObject from 'lodash/isObject.js';
 
 function formatValue(value) {
-  let formattedValue;
-
   if (isObject(value)) {
-    formattedValue = '[complex value]';
-  } else if (typeof value === 'string') {
-    formattedValue = `'${value}'`;
-  } else {
-    formattedValue = value;
+    return '[complex value]';
+  } if (typeof value === 'string') {
+    return `'${value}'`;
   }
-
-  return formattedValue;
+  return value;
 }
 
 function createDiffLine(property, type, originalValue, modifiedValue) {
