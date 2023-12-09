@@ -1,13 +1,19 @@
+import * as jest from 'jest-mock';
 import parseFileToObject from '../src/parser.js';
 import {
   absolutePath1,
   absolutePath2,
   fileContentRead,
   fileContentPlain1,
-  fileContentNested1, fileContentNested2, astExample,
+  fileContentNested1,
+  fileContentNested2,
+  astExample,
+  plainFormattedDifference,
+  stylishFormattedDifference,
 } from '../__fixtures__/testData.js';
 import { getFileExtension, readFileContent } from '../src/utils.js';
 import buildAST from '../src/buildAST.js';
+import formatDiff from '../src/formatter/index.js';
 
 // Utilities test
 test('File extension checker: existing file – yml, json', () => {
@@ -35,4 +41,13 @@ test('Parser: existing file, correct/non-json/yaml format', () => {
 // AST Builder test
 test('AST builder: Nested files', () => {
   expect(buildAST(fileContentNested1, fileContentNested2)).toStrictEqual(astExample);
+});
+
+// Formatter tests
+test('Formatter: Formatter with plain format', () => {
+  console.log = jest.fn();
+  console.log(formatDiff(astExample, 'plain'));
+  expect(console.log).toHaveBeenCalledWith(plainFormattedDifference);
+  console.log(formatDiff(astExample, 'stylish'));
+  expect(console.log).toHaveBeenCalledWith(stylishFormattedDifference);
 });
