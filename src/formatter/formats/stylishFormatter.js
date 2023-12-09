@@ -23,23 +23,23 @@ function stringify(value, depth) {
 
 function iterateNodes(nodes, depth = 1) {
   const lines = nodes.map((node) => {
+    const { key, type, children } = node;
     let line;
-
-    switch (node.type) {
+    switch (type) {
       case 'nested':
-        line = `${getIndentation(depth)}${node.key}: ${iterateNodes(node.children, depth + 1)}`;
+        line = `${getIndentation(depth)}${key}: ${iterateNodes(children, depth + 1)}`;
         break;
       case 'added':
-        line = `${getIndentation(depth, '+')}${node.key}: ${stringify(node.modifiedValue, depth + 1)}`;
+        line = `${getIndentation(depth, '+')}${key}: ${stringify(node.modifiedValue, depth + 1)}`;
         break;
       case 'removed':
-        line = `${getIndentation(depth, '-')}${node.key}: ${stringify(node.originalValue, depth + 1)}`;
+        line = `${getIndentation(depth, '-')}${key}: ${stringify(node.originalValue, depth + 1)}`;
         break;
       case 'updated':
-        line = `${getIndentation(depth, '-')}${node.key}: ${stringify(node.originalValue, depth + 1)}\n${getIndentation(depth, '+')}${node.key}: ${stringify(node.modifiedValue, depth + 1)}`;
+        line = `${getIndentation(depth, '-')}${key}: ${stringify(node.originalValue, depth + 1)}\n${getIndentation(depth, '+')}${key}: ${stringify(node.modifiedValue, depth + 1)}`;
         break;
       default:
-        line = `${getIndentation(depth)}${node.key}: ${node.originalValue}`;
+        line = `${getIndentation(depth)}${key}: ${node.originalValue}`;
     }
     return line;
   });
