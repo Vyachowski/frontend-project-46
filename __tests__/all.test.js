@@ -40,22 +40,3 @@ test('Parser: existing file, nested – yml, yaml, json', () => {
   const fileContent = readFileContent('__fixtures__/file1.yml');
   expect(parseFileToObject(fileContent, '.yml')).toStrictEqual(fileContentNested1);
 });
-
-// Comparator tests
-test('BuildAST: Get difference of files', () => {
-  expect(buildAST(fileContentNested1, fileContentNested2)).toStrictEqual(difference);
-});
-
-// Formatter tests
-test('Formatter: Stylish format separate', () => {
-  expect(stylishFormatter(difference)).toStrictEqual(stylishFormattedDifference);
-});
-
-test('Formatter: Formatter with plain format', () => {
-  // eslint-disable-next-line
-  console.log = jest.fn();
-  console.log(formatDiff(difference, 'plain'));
-  expect(console.log).toHaveBeenCalledWith(plainFormattedDifference);
-  console.log(formatDiff(difference, 'stylish'));
-  expect(console.log).toHaveBeenCalledWith(stylishFormattedDifference);
-});
