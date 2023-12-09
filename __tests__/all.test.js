@@ -1,19 +1,12 @@
-import jest from 'jest-mock';
 import parseFileToObject from '../src/parser.js';
-import formatDiff from '../src/formatter/index.js';
-import stylishFormatter from '../src/formatter/formats/stylishFormatter.js';
 import {
   absolutePath1,
   absolutePath2,
   fileContentRead,
   fileContentPlain1,
   fileContentNested1,
-  difference,
-  stylishFormattedDifference,
-  plainFormattedDifference, fileContentNested2,
 } from '../__fixtures__/testData.js';
 import { getFileExtension, readFileContent } from '../src/utils.js';
-import buildAST from '../src/buildAST.js';
 
 // Utilities test
 test('File extension checker: existing file – yml, json', () => {

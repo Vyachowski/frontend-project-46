@@ -21,7 +21,7 @@ function createDiffLine(property, type, originalValue, modifiedValue) {
     updated: `was updated. From ${formatValue(originalValue)} to ${formatValue(modifiedValue)}`,
   };
 
-  return `Property ${property} ${lineEnding[type]}`;
+  return `Property '${property}' ${lineEnding[type]}`;
 }
 
 function iterateNodes(nodes, path) {
