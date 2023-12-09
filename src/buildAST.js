@@ -32,22 +32,18 @@ export default function buildAST(originalObj, modifiedObj) {
     const originalValue = originalObj[key];
     const modifiedValue = modifiedObj[key];
     const nodeTemplate = { key };
-    let node;
 
     if (!has(originalObj, key)) {
-      node = { ...nodeTemplate, type: 'added', modifiedValue };
-    } else if (!has(modifiedObj, key)) {
-      node = { ...nodeTemplate, type: 'removed', originalValue };
-    } else if (isObject(originalValue) && isObject(modifiedValue)) {
-      node = { ...nodeTemplate, type: 'nested', children: buildAST(originalValue, modifiedValue) };
-    } else if (originalValue !== modifiedValue) {
-      node = {
+      return { ...nodeTemplate, type: 'added', modifiedValue };
+    } if (!has(modifiedObj, key)) {
+      return { ...nodeTemplate, type: 'removed', originalValue };
+    } if (isObject(originalValue) && isObject(modifiedValue)) {
+      return { ...nodeTemplate, type: 'nested', children: buildAST(originalValue, modifiedValue) };
+    } if (originalValue !== modifiedValue) {
+      return {
         ...nodeTemplate, type: 'updated', originalValue, modifiedValue,
       };
-    } else {
-      node = { ...nodeTemplate, type: 'unchanged', originalValue };
     }
-
-    return node;
+    return { ...nodeTemplate, type: 'unchanged', originalValue };
   });
 }
