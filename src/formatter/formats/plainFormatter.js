@@ -16,7 +16,7 @@ function formatValue(value) {
 
 function createDiffLine(property, type, originalValue, modifiedValue) {
   const lineEnding = {
-    added: `was added with value ${formatValue(modifiedValue)}`,
+    added: `was added with value: ${formatValue(modifiedValue)}`,
     removed: 'was removed',
     updated: `was updated. From ${formatValue(originalValue)} to ${formatValue(modifiedValue)}`,
   };
