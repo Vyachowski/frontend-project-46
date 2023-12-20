@@ -1,7 +1,6 @@
-import isObject from 'lodash/isObject.js';
-import union from 'lodash/union.js';
-import sortBy from 'lodash/sortBy.js';
-import has from 'lodash/has.js';
+import {
+  isObject, union, sortBy, has,
+} from 'lodash';
 
 export default function buildAST(originalObj, modifiedObj) {
   const objsKeys = union(Object.keys(originalObj), Object.keys(modifiedObj));
