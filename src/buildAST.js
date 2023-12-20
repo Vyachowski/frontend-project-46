@@ -1,19 +1,17 @@
-import {
-  isObject, union, sortBy, has,
-} from 'lodash';
+import _ from 'lodash';
 
 export default function buildAST(originalObj, modifiedObj) {
-  const objsKeys = union(Object.keys(originalObj), Object.keys(modifiedObj));
-  return sortBy(objsKeys).map((key) => {
+  const objsKeys = _.union(Object.keys(originalObj), Object.keys(modifiedObj));
+  return _.sortBy(objsKeys).map((key) => {
     const originalValue = originalObj[key];
     const modifiedValue = modifiedObj[key];
     const nodeTemplate = { key };
 
-    if (!has(originalObj, key)) {
+    if (!_.has(originalObj, key)) {
       return { ...nodeTemplate, type: 'added', modifiedValue };
-    } if (!has(modifiedObj, key)) {
+    } if (!_.has(modifiedObj, key)) {
       return { ...nodeTemplate, type: 'removed', originalValue };
-    } if (isObject(originalValue) && isObject(modifiedValue)) {
+    } if (_.isObject(originalValue) && _.isObject(modifiedValue)) {
       return { ...nodeTemplate, type: 'nested', children: buildAST(originalValue, modifiedValue) };
     } if (originalValue !== modifiedValue) {
       return {
