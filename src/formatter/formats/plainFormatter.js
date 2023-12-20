@@ -28,13 +28,13 @@ function iterateNodes(nodes, path) {
       case 'nested':
         return iterateNodes(children, property);
       case 'unchanged':
-        return undefined;
+        return null;
       default:
         return createDiffLine(property, type, node.originalValue, node.modifiedValue);
     }
   });
 
-  return `${lines.filter((value) => value !== undefined).join('\n')}`;
+  return `${lines.filter((value) => value !== null).join('\n')}`;
 }
 
 export default function plainFormatter(tree) {
