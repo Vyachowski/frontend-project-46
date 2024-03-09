@@ -5,7 +5,7 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a626066198bb2e936921/test_coverage)](https://codeclimate.com/github/Vyachowski/frontend-project-46/test_coverage)
 
 # Hexlet JS Project – Генератор разницы в JSON файлах
-
+![Cover image for project](https://github.com/Vyachowski/frontend-project-46/blob/main/cover.png)
 Проект в рамках обучения на курсе «фронтэнд-разработчик» школы «Хекслет». На примере проекта изучается функции высшего порядка, рекурсия и настройка окружения.
 
 For **Readme in English** please follow [this link](https://github.com/Vyachowski/frontend-project-46/blob/main/README.md)
