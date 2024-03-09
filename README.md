@@ -5,7 +5,7 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a626066198bb2e936921/test_coverage)](https://codeclimate.com/github/Vyachowski/frontend-project-46/test_coverage)
 
 # Hexlet JS Project – JSON Difference generator
-
+![Cover image for project](https://github.com/Vyachowski/frontend-project-46/blob/main/cover.png)
 This project is centered around concepts like higher-order functions, recursion, and configuring the environment.
 
 Чтобы читать **Readme на русском**  перейдите по [этой ссылке](https://github.com/Vyachowski/frontend-project-46/blob/main/README_ru.md)
